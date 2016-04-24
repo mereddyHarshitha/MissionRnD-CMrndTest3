@@ -76,5 +76,7 @@ int getOperand(char *data){
 int solve_tree(struct enode *root){
 	if (root==NULL)
 		return -1;
+	
+	
 }
 
