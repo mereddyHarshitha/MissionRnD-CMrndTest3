@@ -72,5 +72,6 @@ struct node{
 };
 
 int is_identical(struct node_dll *head, struct node *root){
-	return -1;
+	if (head==NULL || root==NULL)
+		return -1;
 }
