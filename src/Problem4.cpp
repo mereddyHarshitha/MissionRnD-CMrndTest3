@@ -36,6 +36,57 @@ struct node{
 	struct node *right;
 };
 
-void merge_two_bst(struct node *root1, struct node *root2){
+
+struct node* insert(struct node* node, int key){
 	
+	if (key < node->data)
+		node->left = insert(node->left, key);
+	else if (key>node->data)
+		node->right = insert(node->right,key);
+
+	return node;
+
+}
+void storeInorder(struct node *node, int inorder[], int *index){
+
+	if (node == NULL)
+		return;
+
+	storeInorder(node->left, inorder, index);
+
+	inorder[*index] = node->data;
+	*index = *index + 1;
+
+	storeInorder(node->right, inorder, index);
+
+}
+struct node *mergeTrees(struct node *root1, struct node *root2,  int n){
+	
+	int *arr2 = new int[n];
+	int j = 0;
+	storeInorder(root2, arr2, &j);
+	
+	int i = 0;
+	for (i = 0; i < n; i++){
+		insert(root1, arr2[i]);
+	}
+
+	return root1;
+}
+
+int size(struct node *node){
+	if (node == NULL)
+		return 0;
+	else
+		return (size(node->left) + 1 + size(node->right));
+}
+
+void merge_two_bst(struct node *root1, struct node *root2){
+
+	if (root1 == NULL && root2 == NULL)
+		return;
+
+	int n2 = size(root2);
+
+	 mergeTrees(root1, root2, n2);
 }

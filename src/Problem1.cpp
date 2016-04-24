@@ -51,6 +51,36 @@ struct node{
 };
 
 
+int search(struct node* root, int key){
+
+	if (!root){
+		return 0;
+	}
+	search(root->left, key);
+
+	if (root->data == key){
+		return 1;
+	}
+
+	search(root->right, key);
+
+}
+
+
+
 int get_missing_value(struct node *root,int n){
-    return -1;
+
+	if (root == NULL)
+		return -1;
+
+	int i = 0;
+	while(i <= n){
+
+		if (search(root,i)){
+			i++;
+		}
+		else
+			return i;
+	}
+	return 0;
 }
